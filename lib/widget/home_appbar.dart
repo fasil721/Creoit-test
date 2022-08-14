@@ -63,7 +63,7 @@ class HomeAppBar extends StatelessWidget {
                   Text(
                     "TV Shows",
                     style: GoogleFonts.poppins(
-                      color: white,
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
@@ -71,7 +71,7 @@ class HomeAppBar extends StatelessWidget {
                   Text(
                     "Movies",
                     style: GoogleFonts.poppins(
-                      color: white,
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
@@ -81,7 +81,7 @@ class HomeAppBar extends StatelessWidget {
                       Text(
                         "Categories",
                         style: GoogleFonts.poppins(
-                          color: white,
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                         ),
@@ -95,7 +95,7 @@ class HomeAppBar extends StatelessWidget {
                         },
                         icon: const Icon(
                           Icons.arrow_drop_down,
-                          color: white,
+                          color: Colors.white,
                         ),
                       )
                     ],

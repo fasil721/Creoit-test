@@ -1,22 +1,34 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:netflix_clone/datas/constants.dart';
+import 'package:netflix_clone/datas/secrets.dart';
 import 'package:netflix_clone/models/genres_model.dart';
 import 'package:netflix_clone/models/movie_models.dart';
 
 class TmdbServices {
-  Future<List<Result>?> fetchData(String url) async {
-    final mainUrl = "$baseUrl$url$apiKey";
+  static Future<List<Result>?> fetchData(MovieUrlType type) async {
+    late String mainUrl;
+    if (type == MovieUrlType.trending) {
+      mainUrl = Secrets.trendingUrl;
+    } else if (type == MovieUrlType.discover) {
+      mainUrl = Secrets.discoverUrl;
+    } else {
+      mainUrl = Secrets.discoverUrl;
+    }
     try {
       final response = await http.get(Uri.parse(mainUrl));
       if (response.statusCode == 200) {
         final jsonData = await json.decode(response.body);
         final datas =
             MovieModel.fromJson(Map<String, dynamic>.from(jsonData as Map));
+        
         return datas.results;
       }
       final jsonData = await json.decode(response.body);
@@ -35,10 +47,9 @@ class TmdbServices {
     return null;
   }
 
-  Future<List<Genre>?> genre() async {
-    const url = "$baseUrl/genre/movie/list?$apiKey";
+  static Future<List<Genre>?> genre() async {
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(Secrets.genreUrl));
       final jsonData = await json.decode(response.body);
       final datas =
           GenresModel.fromJson(Map<String, dynamic>.from(jsonData as Map));

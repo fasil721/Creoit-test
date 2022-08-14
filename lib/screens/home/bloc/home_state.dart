@@ -6,16 +6,15 @@ abstract class HomeState {
 
 class HomeInitial extends HomeState {}
 
-class MainPosterLoadingState extends HomeState {}
+class HomeDataLoadingState extends HomeState {}
 
-class MainPosterLoadedState extends HomeState {
-  final List<Result> movies;
-  const MainPosterLoadedState(this.movies);
-}
-
-class HomeListLoadingState extends HomeState {}
-
-class HomeListLoadedState extends HomeState {
-  final List<Result> movies;
-  const HomeListLoadedState(this.movies);
+class HomeDataLoadedState extends HomeState {
+  final List<Result> trendingMovies;
+  final List<Result> discoverMovies;
+  final List<Result> upcomingMovies;
+  const HomeDataLoadedState({
+    required this.trendingMovies,
+    required this.discoverMovies,
+    required this.upcomingMovies,
+  });
 }

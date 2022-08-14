@@ -9,7 +9,7 @@ Widget headings(String txt) => Container(
       child: Text(
         txt,
         style: GoogleFonts.poppins(
-          color: white,
+          color: Colors.white,
           fontSize: 17,
           fontWeight: FontWeight.w500,
         ),
@@ -47,7 +47,7 @@ String datePicker(String date) {
 }
 
 Future<List<String>> genrePicker(List datas) async {
-  final genres = await TmdbServices().genre();
+  final genres = await TmdbServices.genre();
   final List<String> gonres = [];
   final List temp = datas;
   for (final i in genres!) {
@@ -64,7 +64,7 @@ Widget dotIcon() => const Padding(
       padding: EdgeInsets.symmetric(horizontal: 2),
       child: Icon(
         FontAwesomeIcons.ggCircle,
-        color: blue,
+        color: Colors.blue,
         size: 4,
       ),
     );
@@ -72,7 +72,7 @@ Widget dotIcon() => const Padding(
 Widget textGenre(String txt) => Text(
       txt,
       style: GoogleFonts.poppins(
-        color: white,
+        color: Colors.white,
         fontSize: 12,
       ),
     );

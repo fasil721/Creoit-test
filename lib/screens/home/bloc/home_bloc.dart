@@ -7,22 +7,33 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final TmdbServices _tmdb;
-  HomeBloc(this._tmdb) : super(HomeInitial()) {
-    on<LoadTrendingMoviesEvent>((event, emit) async {
-      emit(MainPosterLoadingState());
-      final result = await _tmdb.fetchData(event.url);
-      if (result != null) {
-        emit(MainPosterLoadedState(result));
+  HomeBloc() : super(HomeInitial()) {
+    on<LoadMoviesEvent>((event, emit) async {
+      emit(HomeDataLoadingState());
+      final trendings = await TmdbServices.fetchData(MovieUrlType.trending);
+      final discovers = await TmdbServices.fetchData(MovieUrlType.discover);
+      final upcomings = await TmdbServices.fetchData(MovieUrlType.upcoming);
+      final isValid =
+          trendings != null && discovers != null && upcomings != null;
+      if (isValid) {
+        emit(
+          HomeDataLoadedState(
+            discoverMovies: discovers,
+            trendingMovies: trendings,
+            upcomingMovies: upcomings,
+          ),
+        );
+      } else {
+        emit(HomeInitial());
       }
     });
 
-    on<LoadDiscoverMoviesEvent>((event, emit) async {
-      emit(HomeListLoadingState());
-      final result = await _tmdb.fetchData(event.url);
-      if (result != null) {
-        emit(HomeListLoadedState(result));
-      }
-    });
+    // on<LoadDiscoverMoviesEvent>((event, emit) async {
+    //   emit(HomeListLoadingState());
+    //   final result = await TmdbServices.fetchData(event.url);
+    //   if (result != null) {
+    //     emit(HomeListLoadedState(result));
+    //   }
+    // });
   }
 }

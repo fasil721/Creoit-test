@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix_clone/datas/constants.dart';
-import 'package:netflix_clone/utils/utils.dart';
+import 'package:netflix_clone/datas/secrets.dart';
 import 'package:netflix_clone/models/movie_models.dart';
+import 'package:netflix_clone/utils/utils.dart';
 
 class ItemView extends StatelessWidget {
-  const ItemView({Key? key, required this.movie}) : super(key: key);
+  const ItemView({super.key, required this.movie});
   final Result movie;
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class ItemView extends StatelessWidget {
     final year = temp.split("").toList();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: black,
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: black,
+          backgroundColor: Colors.black,
           toolbarHeight: 70,
           elevation: 0,
           leading: IconButton(
@@ -29,7 +29,7 @@ class ItemView extends StatelessWidget {
           actions: [
             const ImageIcon(
               AssetImage("assets/icons/search.png"),
-              color: white,
+              color: Colors.white,
             ),
             const SizedBox(width: 15),
             Image.network(
@@ -48,7 +48,7 @@ class ItemView extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    imageUrl + movie.backdropPath!,
+                    Secrets.imageUrl + movie.backdropPath!,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(),
@@ -60,11 +60,11 @@ class ItemView extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: white),
+                        border: Border.all(color: Colors.white),
                       ),
                       child: const Icon(
                         Icons.play_arrow,
-                        color: white,
+                        color: Colors.white,
                         size: 35,
                       ),
                     ),
@@ -81,7 +81,7 @@ class ItemView extends StatelessWidget {
                 movie.title!,
                 style: GoogleFonts.poppins(
                   fontSize: 22,
-                  color: white,
+                  color: Colors.white,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -92,7 +92,7 @@ class ItemView extends StatelessWidget {
                 "Released On $date ${year[0]}${year[1]}${year[2]}${year[3]}",
                 style: GoogleFonts.roboto(
                   fontSize: 13,
-                  color: grey,
+                  color: const Color(0xff585858),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -101,7 +101,7 @@ class ItemView extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(3),
-                color: white,
+                color: Colors.white,
               ),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -110,13 +110,13 @@ class ItemView extends StatelessWidget {
                   const Icon(
                     Icons.play_arrow,
                     size: 25,
-                    color: black,
+                    color: Colors.black,
                   ),
                   const SizedBox(width: 5),
                   Text(
                     "Play",
                     style: GoogleFonts.poppins(
-                      color: black,
+                      color: Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
@@ -128,7 +128,7 @@ class ItemView extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(3),
-                color: grey.withOpacity(0.5),
+                color: const Color(0xff585858).withOpacity(0.5),
               ),
               margin: const EdgeInsets.all(10),
               child: Row(
@@ -137,13 +137,13 @@ class ItemView extends StatelessWidget {
                   const Icon(
                     Icons.file_download_outlined,
                     size: 25,
-                    color: white,
+                    color: Colors.white,
                   ),
                   const SizedBox(width: 5),
                   Text(
                     "Download",
                     style: GoogleFonts.poppins(
-                      color: white,
+                      color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -159,7 +159,7 @@ class ItemView extends StatelessWidget {
                 movie.overview!,
                 style: GoogleFonts.roboto(
                   fontSize: 15,
-                  color: grey,
+                  color: const Color(0xff585858),
                 ),
               ),
             ),
@@ -172,10 +172,10 @@ class ItemView extends StatelessWidget {
                 future: genrePicker(movie.genreIds!),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    final _genres = snapshot.data!;
+                    final genres = snapshot.data!;
                     return Row(
                       children: [
-                        ..._genres.map(
+                        ...genres.map(
                           (element) {
                             return Row(
                               children: [
@@ -183,16 +183,16 @@ class ItemView extends StatelessWidget {
                                   element,
                                   style: GoogleFonts.roboto(
                                     fontSize: 13,
-                                    color: white,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                if (_genres.last != element)
+                                if (genres.last != element)
                                   const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 4),
                                     child: Icon(
                                       FontAwesomeIcons.ggCircle,
-                                      color: blue,
+                                      color: Colors.blue,
                                       size: 4,
                                     ),
                                   )
@@ -217,14 +217,14 @@ class ItemView extends StatelessWidget {
                     const SizedBox(height: 10),
                     const Icon(
                       Icons.add,
-                      color: white,
+                      color: Colors.white,
                       size: 28,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       "My List",
                       style: GoogleFonts.poppins(
-                        color: white,
+                        color: Colors.white,
                         fontSize: 13,
                       ),
                     ),
@@ -235,14 +235,14 @@ class ItemView extends StatelessWidget {
                     const SizedBox(height: 10),
                     const Icon(
                       Icons.thumb_up_outlined,
-                      color: white,
+                      color: Colors.white,
                       size: 28,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       "Rate",
                       style: GoogleFonts.poppins(
-                        color: white,
+                        color: Colors.white,
                         fontSize: 13,
                       ),
                     ),
@@ -253,14 +253,14 @@ class ItemView extends StatelessWidget {
                     const SizedBox(height: 10),
                     const Icon(
                       Icons.share,
-                      color: white,
+                      color: Colors.white,
                       size: 30,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       "Share",
                       style: GoogleFonts.poppins(
-                        color: white,
+                        color: Colors.white,
                         fontSize: 13,
                       ),
                     ),

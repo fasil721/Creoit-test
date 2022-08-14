@@ -1,15 +1,11 @@
 part of 'home_bloc.dart';
 
-abstract class HomeEvent  {
+abstract class HomeEvent {
   const HomeEvent();
 }
 
-class LoadTrendingMoviesEvent extends HomeEvent {
-  final url = trendingUrl;
+class LoadMoviesEvent extends HomeEvent {
  
-}
 
-class LoadDiscoverMoviesEvent extends HomeEvent {
-  final url = discoverUrl;
- 
+  
 }

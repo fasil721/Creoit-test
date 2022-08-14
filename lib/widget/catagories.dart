@@ -6,9 +6,8 @@ class Catogories extends StatelessWidget {
   const Catogories({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: black.withOpacity(0.7),
+  Widget build(BuildContext context) => ColoredBox(
+      color: Colors.black.withOpacity(0.7),
       child: Stack(
         children: [
           Align(
@@ -25,13 +24,13 @@ class Catogories extends StatelessWidget {
                       "Home",
                       style: GoogleFonts.lato(
                         fontSize: 20,
-                        color: white,
+                        color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
-                ...catogories.map(
+                ...moviecatogories.map(
                   (e) => Align(
                     child: Padding(
                       padding: const EdgeInsets.all(15),
@@ -39,7 +38,7 @@ class Catogories extends StatelessWidget {
                         e,
                         style: GoogleFonts.lato(
                           fontSize: 17,
-                          color: white.withOpacity(0.7),
+                          color: Colors.white.withOpacity(0.7),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -58,7 +57,7 @@ class Catogories extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: white.withOpacity(0.9),
+                  color: Colors.white.withOpacity(0.9),
                 ),
                 height: 60,
                 width: 60,
@@ -69,5 +68,4 @@ class Catogories extends StatelessWidget {
         ],
       ),
     );
-  }
 }
