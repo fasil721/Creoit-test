@@ -44,10 +44,10 @@ class _HomePageState extends State<HomePage> {
                   _buildHomeMainPoster(),
                   const SizedBox(height: 10),
                   headings("Popular On Netflix"),
-                  _buildHomeListview(type: MovieUrlType.trending),
+                  _buildHomeListview(type: MovieUrlType.popular),
                   headings("Trending Now"),
-                  _buildHomeListview(type: MovieUrlType.discover),
-                  headings("Top 10 Rated in India"),
+                  _buildHomeListview(type: MovieUrlType.nowPlaying),
+                  headings("Top 10 Rated"),
                   _buildstackListView(),
                 ],
               ),
@@ -90,10 +90,10 @@ class _HomePageState extends State<HomePage> {
           }
           if (state is HomeDataLoadedState) {
             List<Result> datas;
-            if (type == MovieUrlType.trending) {
-              datas = state.trendingMovies;
+            if (type == MovieUrlType.popular) {
+              datas = state.popularMovies;
             } else {
-              datas = state.discoverMovies;
+              datas = state.nowPlayingMovies;
             }
             return Container(
               margin: const EdgeInsets.all(10),
@@ -103,25 +103,24 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: datas.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ItemView(movie: datas[index]),
-                      ),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemView(movie: datas[index]),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Image.network(
-                        Secrets.imageUrl + datas[index].posterPath!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Container(),
-                      ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.network(
+                      Secrets.imageUrl + datas[index].posterPath!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(),
+                      loadingBuilder: (context, child, loadingProgress) =>
+                          loadingProgress != null ? _buildListLoading() : child,
                     ),
-                  );
-                },
+                  ),
+                ),
                 separatorBuilder: (BuildContext context, int index) =>
                     const SizedBox(width: 10),
               ),
@@ -139,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                 return _buildPosterLoader(context);
               }
               if (state is HomeDataLoadedState) {
-                final datas = state.trendingMovies;
+                final datas = state.nowPlayingMovies;
                 return _buildPoster(context, datas);
               }
               return Container();
@@ -252,37 +251,38 @@ class _HomePageState extends State<HomePage> {
           Secrets.imageUrl + datas.last.posterPath!,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) => Container(),
+          loadingBuilder: (context, child, loadingProgress) =>
+              loadingProgress != null ? _buildPosterLoader(context) : child,
         ),
       );
 
-  Positioned _buildPosterShade() {
-    return Positioned(
-      bottom: 0,
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * .65,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.1),
-              Colors.black.withOpacity(0.6),
-              Colors.black.withOpacity(0.7),
-              Colors.black.withOpacity(0.8),
-              Colors.black.withOpacity(0.9),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+  Positioned _buildPosterShade() => Positioned(
+        bottom: 0,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * .65,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.3),
+                Colors.black.withOpacity(0.5),
+                Colors.black.withOpacity(0.8),
+                Colors.black.withOpacity(0.9),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   Widget _buildstackListView() => Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -293,14 +293,20 @@ class _HomePageState extends State<HomePage> {
               return _buildListLoading();
             }
             if (state is HomeDataLoadedState) {
-              final datas = state.upcomingMovies;
+              final datas = state.topRatedMovies;
               return ListView.builder(
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Stack(
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemView(movie: datas[index]),
+                    ),
+                  ),
+                  child: Stack(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     children: [
                       Container(
@@ -359,8 +365,8 @@ class _HomePageState extends State<HomePage> {
                       else
                         Container()
                     ],
-                  );
-                },
+                  ),
+                ),
               );
             }
             return const SizedBox();

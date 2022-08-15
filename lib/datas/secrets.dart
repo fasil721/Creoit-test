@@ -6,4 +6,7 @@ class Secrets {
   static const discoverUrl = "$_baseUrl/discover/movie?$_apiKey";
   static const upcomingUrl = "$_baseUrl/movie/upcoming?$_apiKey";
   static const genreUrl = "$_baseUrl/genre/movie/list?$_apiKey";
+  static const popularUrl = "$_baseUrl/movie/top_rated?$_apiKey";
+  static const topRatedUrl = "$_baseUrl/movie/popular?$_apiKey";
+  static const nowPlayingUrl = "$_baseUrl/movie/now_playing?$_apiKey";
 }

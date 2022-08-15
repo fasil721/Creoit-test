@@ -10,30 +10,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<LoadMoviesEvent>((event, emit) async {
       emit(HomeDataLoadingState());
-      final trendings = await TmdbServices.fetchData(MovieUrlType.trending);
-      final discovers = await TmdbServices.fetchData(MovieUrlType.discover);
-      final upcomings = await TmdbServices.fetchData(MovieUrlType.upcoming);
-      final isValid =
-          trendings != null && discovers != null && upcomings != null;
+      final topRatedMovies =
+          await TmdbServices.fetchData(MovieUrlType.topRated);
+      final popularMovies = await TmdbServices.fetchData(MovieUrlType.popular);
+      final nowPlayingMovies =
+          await TmdbServices.fetchData(MovieUrlType.upcoming);
+      final isValid = topRatedMovies != null &&
+          popularMovies != null &&
+          nowPlayingMovies != null;
       if (isValid) {
         emit(
           HomeDataLoadedState(
-            discoverMovies: discovers,
-            trendingMovies: trendings,
-            upcomingMovies: upcomings,
+            topRatedMovies: topRatedMovies,
+            popularMovies: popularMovies,
+            nowPlayingMovies: nowPlayingMovies,
           ),
         );
       } else {
         emit(HomeInitial());
       }
     });
-
-    // on<LoadDiscoverMoviesEvent>((event, emit) async {
-    //   emit(HomeListLoadingState());
-    //   final result = await TmdbServices.fetchData(event.url);
-    //   if (result != null) {
-    //     emit(HomeListLoadedState(result));
-    //   }
-    // });
   }
 }

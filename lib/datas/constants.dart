@@ -19,4 +19,4 @@ const moviecatogories = [
   "Thrillers",
 ];
 
-enum MovieUrlType { trending, discover, upcoming }
+enum MovieUrlType { popular, nowPlaying, upcoming, topRated }
