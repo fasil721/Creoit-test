@@ -92,7 +92,7 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
                           ),
                         ),
                         if (state is VerifyOtpLoadingState)
-                          const Center(
+                           Center(
                             child: SizedBox(
                               width: 30,
                               height: 30,

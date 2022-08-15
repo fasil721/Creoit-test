@@ -196,7 +196,7 @@ class _OtpFormState extends State<OtpForm> {
           focusNode: focusNode,
           autofocus: autofocus,
           maxLength: 1,
-          style: const TextStyle(fontSize: 20, color: NewTheme.secondaryColor),
+          style:  TextStyle(fontSize: 20, color: NewTheme.secondaryColor),
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           decoration: otpInputDecoration,

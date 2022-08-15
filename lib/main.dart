@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:netflix_clone/screens/home/home.dart';
+import 'package:netflix_clone/screens/coming_soon/coming_soon.dart';
 import 'package:netflix_clone/screens/mobile_signup_view/bloc/mobile_signup_bloc.dart';
 import 'package:netflix_clone/screens/verify_otp_view/bloc/verify_otp_bloc.dart';
 import 'package:netflix_clone/theme/theme.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           //   builder: (context, snapshot) =>
           //       snapshot.hasData ? const HomePage() : const MobileSignUpView(),
           // ),
-          home: const HomePage(),
+          home: const ComingSoonPage(),
         ),
       );
 }

@@ -21,14 +21,13 @@ class Utils {
         statusBarIconBrightness:
             isDarkStatusIcons ? Brightness.dark : Brightness.light,
         systemNavigationBarColor: navColor ?? Colors.transparent,
-      
         systemNavigationBarIconBrightness:
             isDarkNavsIcons ? Brightness.dark : Brightness.light,
       );
 
   static SizedBox buttonLoader(double width) => SizedBox(
         width: width,
-        child: const LoadingIndicator(
+        child: LoadingIndicator(
           indicatorType: Indicator.ballPulse,
           colors: [NewTheme.secondaryColor],
           strokeWidth: 2,
