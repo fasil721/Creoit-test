@@ -38,7 +38,6 @@ class MobileSignupBloc extends Bloc<MobileSignupEvent, MobileSignupState> {
     MobileNoEvent event,
     Emitter<MobileSignupState> emit,
   ) async {
-    emit(MobileSignupLoading());
     if (state is! MobileSignupLoading) {
       final isValid = _validatePhoneNo(event.phoneNo);
       if (isValid) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:netflix_clone/screens/verify_otp_view/bloc/verify_otp_bloc.dart';
 import 'package:netflix_clone/theme/theme.dart';
 import 'package:netflix_clone/utils/screen_sizer.dart';
+import 'package:netflix_clone/widget/white_space_widgets.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
@@ -58,7 +58,7 @@ class _OtpFormState extends State<OtpForm> {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          SizedBox(height: Get.height * 0.015),
+          const SizedHeightSpace(2),
           BlocBuilder<VerifyOtpBloc, VerifyOtpState>(
             builder: (context, state) {
               final bloc = context.read<VerifyOtpBloc>();
@@ -187,18 +187,16 @@ class _OtpFormState extends State<OtpForm> {
   }) =>
       Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(5),
           color: NewTheme.formFieldColor,
         ),
-        width: getScreenWidthByPercentage(6),
-        // width: Utils.getProportionateScreenWidth(60),
+        width: getScreenWidthByPercentage(14),
         child: TextFormField(
           controller: textEditingController,
           focusNode: focusNode,
           autofocus: autofocus,
           maxLength: 1,
-          // obscureText: true,
-          style: const TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20, color: NewTheme.secondaryColor),
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           decoration: otpInputDecoration,
@@ -216,7 +214,7 @@ class _OtpFormState extends State<OtpForm> {
     hintStyle: const TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: 25,
-      color: NewTheme.primaryColor,
+      color: NewTheme.textColor,
     ),
     focusedBorder: _outlineInputBorder(),
     enabledBorder: _outlineInputBorder(),
