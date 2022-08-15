@@ -12,13 +12,17 @@ part 'downloads_state.dart';
 class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
   DownloadsBloc() : super(DownloadedMoviesLoadingState()) {
     on<LoadDownloadedMoviesEvent>((event, emit) async {
+      // triggering loading event
       emit(DownloadedMoviesLoadingState());
+      //fetching upcoming movies from the api
       final result = await TmdbServices.fetchData(MovieUrlType.upcoming);
       if (result != null) {
+        //updating the ui with new data
         emit(DownloadedMoviesLoadedState(result));
       }
     });
     on<SignOutEvent>((event, emit) async {
+      //signing out the user and redirecting the signing page
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const MobileSignUpView());
     });

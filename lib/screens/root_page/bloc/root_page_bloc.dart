@@ -9,6 +9,7 @@ part 'root_page_state.dart';
 class RootPageBloc extends Bloc<RootPageEvent, RootPageState> {
   RootPageBloc() : super(RootPageInitial(0)) {
     on<RootPageIndexChangeEvent>((event, emit) {
+      //updating the screnn when the index changing
       emit(RootPageInitial(event.index));
     });
   }

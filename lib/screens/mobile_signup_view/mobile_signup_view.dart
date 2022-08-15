@@ -60,48 +60,47 @@ class _MobileSignUpViewState extends State<MobileSignUpView> {
   GestureDetector _buildSigUpButton(
     MobileSignupState state,
     BuildContext context,
-  ) {
-    return GestureDetector(
-      onTap: state is! MobileSignupLoading
-          ? () {
-              BlocProvider.of<MobileSignupBloc>(context).add(
-                MobileNoEvent(phoneNoTextController.text),
-              );
-            }
-          : null,
-      child: Container(
-        height: getScreenHeightByPercentage(7),
-        margin: EdgeInsets.symmetric(
-          horizontal: getScreenWidthByPercentage(10),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(width: 1.5),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (state is MobileSignupLoading)
-              Utils.buttonLoader(
-                getScreenWidthByPercentage(8),
-              )
-            else ...[
-              Center(
-                child: Text(
-                  'Sign In',
-                  style: GoogleFonts.rubik(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+  ) =>
+      GestureDetector(
+        onTap: state is! MobileSignupLoading
+            ? () {
+                BlocProvider.of<MobileSignupBloc>(context).add(
+                  MobileNoEvent(phoneNoTextController.text),
+                );
+              }
+            : null,
+        child: Container(
+          height: getScreenHeightByPercentage(7),
+          margin: EdgeInsets.symmetric(
+            horizontal: getScreenWidthByPercentage(10),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(width: 1.5),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (state is MobileSignupLoading)
+                Utils.buttonLoader(
+                  getScreenWidthByPercentage(8),
+                )
+              else ...[
+                Center(
+                  child: Text(
+                    'Sign In',
+                    style: GoogleFonts.rubik(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
+              ],
             ],
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   AppBar _buildAppbar() => AppBar(
         elevation: 0,

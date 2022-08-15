@@ -17,6 +17,7 @@ class MobileSignupBloc extends Bloc<MobileSignupEvent, MobileSignupState> {
     on<MobileNoEvent>(_sendOtp);
 
     on<OtpSentEvent>((event, emit) async {
+      //redirecting page to verify otp view after otp sent
       Get.to(
         () => VerifyOtpView(
           phoneNo: event.phoneNo,
@@ -27,6 +28,7 @@ class MobileSignupBloc extends Bloc<MobileSignupEvent, MobileSignupState> {
     });
 
     on<OtPSendFailedEvent>((event, emit) {
+      //notifying error to the user 
       if (event.errorMessage != null) {
         Utils.showErrorSnackBar(event.errorMessage!);
       }
@@ -39,20 +41,25 @@ class MobileSignupBloc extends Bloc<MobileSignupEvent, MobileSignupState> {
     Emitter<MobileSignupState> emit,
   ) async {
     if (state is! MobileSignupLoading) {
+      //validating the user entered phone no is it valid or not
       final isValid = _validatePhoneNo(event.phoneNo);
       if (isValid) {
         emit(MobileSignupLoading());
         try {
+          //verifying the user using firebase mobile auth service
           await FirebaseAuth.instance.verifyPhoneNumber(
             timeout: const Duration(seconds: 60),
             phoneNumber: "+91 ${event.phoneNo}",
             verificationCompleted: (PhoneAuthCredential credential) {
+              //trigger a event to auto fill the resieved otp
               verifyOtpBloc.add(AutoFillOtpEvent(credential.smsCode));
             },
             verificationFailed: (err) {
+              //triggering fail event
               add(OtPSendFailedEvent(err.message));
             },
             codeSent: (verificationid, resendToken) {
+              //triggering event after sent otp
               add(OtpSentEvent(verificationid, event.phoneNo));
             },
             codeAutoRetrievalTimeout: (verificationID) {},
