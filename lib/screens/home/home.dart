@@ -6,9 +6,9 @@ import 'package:netflix_clone/datas/constants.dart';
 import 'package:netflix_clone/datas/secrets.dart';
 import 'package:netflix_clone/models/movie_models.dart';
 import 'package:netflix_clone/screens/home/bloc/home_bloc.dart';
-import 'package:netflix_clone/utils/utils.dart';
 import 'package:netflix_clone/widget/home_appbar.dart';
 import 'package:netflix_clone/widget/item_view.dart';
+import 'package:netflix_clone/widget/smart_widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                 Colors.black.withOpacity(0.3),
                 Colors.black.withOpacity(0.5),
                 Colors.black.withOpacity(0.8),
-                Colors.black.withOpacity(0.9),
+                Colors.black.withOpacity(0.98),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

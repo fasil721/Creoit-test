@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix_clone/datas/constants.dart';
 import 'package:netflix_clone/widget/catagories.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
-    Key? key,
+    super.key,
     required this.notifier,
     required this.offset,
     required this.yOffset,
-  }) : super(key: key);
+  });
   final ValueNotifier<double> notifier;
   final double offset;
   final double yOffset;

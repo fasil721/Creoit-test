@@ -10,7 +10,7 @@ class ItemView extends StatelessWidget {
   final Result movie;
   @override
   Widget build(BuildContext context) {
-    final String date = datePicker(movie.releaseDate!);
+    final String date = Utils.datePicker(movie.releaseDate!);
     final String temp = movie.releaseDate!;
     final year = temp.split("").toList();
     return SafeArea(
@@ -169,7 +169,7 @@ class ItemView extends StatelessWidget {
                 vertical: 10,
               ),
               child: FutureBuilder<List<String>>(
-                future: genrePicker(movie.genreIds!),
+                future: Utils.genrePicker(movie.genreIds!),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     final genres = snapshot.data!;
