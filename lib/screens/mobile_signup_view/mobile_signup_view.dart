@@ -31,7 +31,7 @@ class _MobileSignUpViewState extends State<MobileSignUpView> {
                 const SizedHeightSpace(4),
                 Center(
                   child: Text(
-                    'Recover Password',
+                    'Having Issues?',
                     style: GoogleFonts.roboto(
                       fontSize: 15,
                       color: Colors.white,
